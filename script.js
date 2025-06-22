@@ -107,22 +107,6 @@ window.addEventListener('load', () => {
         scoreElement.textContent = score;
     }
 
-    function slide(row) {
-        let arr = row.filter(cell => cell !== 0);
-        for (let i = 0; i < arr.length - 1; i++) {
-            if (arr[i].value === arr[i+1].value) {
-                arr[i].value *= 2;
-                score += arr[i].value;
-                arr[i+1].value = 0; // Mark for removal
-            }
-        }
-
-        arr = arr.filter(cell => cell.value !== 0);
-
-        while (arr.length < gridSize) arr.push(0);
-        return arr;
-    }
-
     function move(direction) {
         if (isMoving || isGameOver) return;
         isMoving = true;
@@ -156,8 +140,11 @@ window.addEventListener('load', () => {
                             current_r = next_r;
                             current_c = next_c;
                         } else if (tempBoard[next_r][next_c].value === tempBoard[r][c].value) {
-                            current_r = next_r;
-                            current_c = next_c;
+                            const targetCell = tempBoard[next_r][next_c];
+                            if (!targetCell.merged) { // Prevent double merges
+                                current_r = next_r;
+                                current_c = next_c;
+                            }
                             break;
                         } else {
                             break;
@@ -167,11 +154,13 @@ window.addEventListener('load', () => {
                     }
 
                     if (current_r !== r || current_c !== c) {
+                        const movingTile = tempBoard[r][c];
                         if (tempBoard[current_r][current_c] !== 0) {
                             tempBoard[current_r][current_c].value *= 2;
+                            tempBoard[current_r][current_c].merged = true; // Mark as merged
                             score += tempBoard[current_r][current_c].value;
                         } else {
-                            tempBoard[current_r][current_c] = tempBoard[r][c];
+                            tempBoard[current_r][current_c] = movingTile;
                         }
                         tempBoard[r][c] = 0;
                         moved = true;
@@ -179,6 +168,15 @@ window.addEventListener('load', () => {
                 }
             });
         });
+
+        // Clear merged flags after move
+        for(let r=0; r<gridSize; r++) {
+            for(let c=0; c<gridSize; c++) {
+                if(tempBoard[r][c] !== 0) {
+                    delete tempBoard[r][c].merged;
+                }
+            }
+        }
 
         if (moved) {
             board = tempBoard;
