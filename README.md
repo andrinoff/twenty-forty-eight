@@ -1,6 +1,6 @@
 # 2048 Game
 
-![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) ![Languages](https://img.shields.io/badge/languages-HTML%2C%20CSS%2C%20JS-orange.svg) ![Status](https://img.shields.io/badge/status-complete-brightgreen.svg)
+![Languages](https://img.shields.io/badge/languages-HTML%2C%20CSS%2C%20JS-orange.svg) ![Status](https://img.shields.io/badge/status-complete-brightgreen.svg)
 
 A simple, clean, and responsive implementation of the classic 2048 puzzle game, built with HTML, CSS, and vanilla JavaScript.
 
