@@ -4,7 +4,7 @@
 
 A simple, clean, and responsive implementation of the classic 2048 puzzle game, built with HTML, CSS, and vanilla JavaScript.
 
-![Game Screenshot](https://i.imgur.com/example.png) <!-- Replace with an actual screenshot URL -->
+
 
 ## Table of Contents
 
